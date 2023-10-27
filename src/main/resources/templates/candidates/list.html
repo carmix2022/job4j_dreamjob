@@ -21,7 +21,8 @@
                     <a class="nav-item nav-link" href="/">Главная</a>
                     <a class="nav-item nav-link" th:href="@{/vacancies}">Вакансии</a>
                     <a class="nav-item nav-link active" th:href="@{/candidates}">Кандидаты</a>
-                    <a class="nav-item nav-link" th:href="@{/vacancies/create}">Создать вакансию</a>
+                    <a class="nav-item nav-link active" th:href="@{/vacancies/create}">Создать вакансию</a>
+                    <a class="nav-item nav-link active" th:href="@{/candidates/create}">Создать резюме</a>
                 </div>
             </div>
         </div>
@@ -41,7 +42,6 @@
                 <tr th:each="candidate: ${candidates}">
                     <td th:text="${candidate.id}" />
                     <td th:text="${candidate.name}" />
-                    <td th:text="${candidate.description}"/>
                     <td th:text="${candidate.creationDate}"/>
                 </tr>
                 </tbody>
