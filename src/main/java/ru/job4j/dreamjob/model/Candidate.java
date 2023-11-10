@@ -88,5 +88,4 @@ public class Candidate {
     public int hashCode() {
         return Objects.hash(id);
     }
-
 }
