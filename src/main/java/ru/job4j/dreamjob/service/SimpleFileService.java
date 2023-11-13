@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.service;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.dto.FileDto;
@@ -12,6 +13,7 @@ import java.nio.file.Path;
 import java.util.Optional;
 import java.util.UUID;
 
+@ThreadSafe
 @Service
 public class SimpleFileService implements FileService {
 
