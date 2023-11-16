@@ -21,24 +21,14 @@ public class UserController {
         this.userService = userService;
     }
 
-    private User getUserFromHttpSession(HttpSession session) {
-        var user = (User) session.getAttribute("user");
-        if (user == null) {
-            user = new User();
-            user.setName("Гость");
-        }
-        return user;
-    }
-
     @GetMapping("/register")
-    public String getRegistationPage(Model model, HttpSession session) {
-        model.addAttribute("user", getUserFromHttpSession(session));
+    public String getRegistationPage() {
         return "users/register";
     }
 
     @PostMapping("/register")
-    public String register(Model model, HttpSession session, @ModelAttribute User user) {
-        model.addAttribute("user", getUserFromHttpSession(session));
+    public String register(@ModelAttribute User user, Model model, HttpServletRequest request) {
+        model.addAttribute("user", request.getAttribute("user"));
         var savedUser = userService.save(user);
         if (savedUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
@@ -48,20 +38,19 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model, HttpSession session) {
-        model.addAttribute("user", getUserFromHttpSession(session));
+    public String getLoginPage() {
         return "users/login";
     }
 
     @PostMapping("/login")
     public String loginUser(@ModelAttribute User user, Model model, HttpServletRequest request) {
-        var session = request.getSession();
         var userOptional = userService.findByEmailAndPassword(user.getEmail(), user.getPassword());
         if (userOptional.isEmpty()) {
-            model.addAttribute("user", getUserFromHttpSession(session));
+            model.addAttribute("user", request.getAttribute("user"));
             model.addAttribute("error", "Почта или пароль введены неверно");
             return "users/login";
         }
+        var session = request.getSession();
         session.setAttribute("user", userOptional.get());
         return "redirect:/vacancies";
     }
