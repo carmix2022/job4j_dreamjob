@@ -48,14 +48,14 @@ public class UserController {
             model.addAttribute("error", "Почта или пароль введены неверно");
             return "users/login";
         }
-        var session = request.getSession();
-        session.setAttribute("user", userOptional.get());
+        var session1 = request.getSession();
+        session1.setAttribute("user", userOptional.get());
         return "redirect:/vacancies";
     }
 
     @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
+    public String logout(HttpSession session1) {
+        session1.invalidate();
         return "redirect:/users/login";
     }
 }

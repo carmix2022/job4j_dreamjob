@@ -18,13 +18,13 @@ public class SessionFilter extends HttpFilter {
 
     @Override
     protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-        var session = request.getSession();
-        addUserToSession(session, request);
+        var session1 = request.getSession();
+        addUserToSession(session1, request);
         chain.doFilter(request, response);
     }
 
-    private void addUserToSession(HttpSession session, HttpServletRequest request) {
-        var user = (User) session.getAttribute("user");
+    private void addUserToSession(HttpSession session1, HttpServletRequest request) {
+        var user = (User) session1.getAttribute("user");
         if (user == null) {
             user = new User();
             user.setName("Гость");
